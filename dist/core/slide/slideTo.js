@@ -1,5 +1,5 @@
 import { animateCSSModeScroll } from '../../shared/utils.js';
-export default function slideTo(index = 0, speed = this.params.speed, runCallbacks = true, internal, initial) {
+export default function slideTo(index = 0, speed = this.params.speed, runCallbacks = true, internal, initial, fixLoop = false) {
   if (typeof index !== 'number' && typeof index !== 'string') {
     throw new Error(`The 'index' argument cannot have type other than 'number' or 'string'. [${typeof index}] given.`);
   }
@@ -53,6 +53,7 @@ export default function slideTo(index = 0, speed = this.params.speed, runCallbac
     swiper.emit('beforeSlideChangeStart');
   }
 
+  if (fixLoop && slideIndex % swiper.params.slidesPerGroup > 0) snapIndex += 1;
   const translate = -snapGrid[snapIndex]; // Update progress
 
   swiper.updateProgress(translate); // Normalize slideIndex

@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <title>Swiper Playground</title>
   <meta name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="../../dist/swiper-bundle.css">
 </head>
 
 <body>
@@ -42,19 +43,15 @@
       line-height: 300px;
     }
   </style>
+  <script src="../../dist/swiper-bundle.js"></script>
   <script type="module">
-    // eslint-disable-next-line
-    import 'swiper/swiper-bundle.css';
-
-    // eslint-disable-next-line
-    import Swiper from 'swiper/swiper-bundle.esm.js';
 
     // eslint-disable-next-line
     window.swiper = new Swiper({
       el: '.swiper',
-      slideToClickedSlide: true,
-      grabCursor: true,
-      scrollbar: true,
+      slidesPerView: 3,
+      slidesPerGroup: 3,
+      loop: true,
       createElements: true,
       speed: 300,
       pagination: true,

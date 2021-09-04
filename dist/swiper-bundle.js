@@ -2502,7 +2502,7 @@
       transitionEnd
     };
 
-    function slideTo(index = 0, speed = this.params.speed, runCallbacks = true, internal, initial) {
+    function slideTo(index = 0, speed = this.params.speed, runCallbacks = true, internal, initial, fixLoop = false) {
       if (typeof index !== 'number' && typeof index !== 'string') {
         throw new Error(`The 'index' argument cannot have type other than 'number' or 'string'. [${typeof index}] given.`);
       }
@@ -2556,6 +2556,7 @@
         swiper.emit('beforeSlideChangeStart');
       }
 
+      if (fixLoop && slideIndex % swiper.params.slidesPerGroup > 0) snapIndex += 1;
       const translate = -snapGrid[snapIndex]; // Update progress
 
       swiper.updateProgress(translate); // Normalize slideIndex
@@ -2951,8 +2952,9 @@
 
       if (activeIndex < loopedSlides) {
         newIndex = slides.length - loopedSlides * 3 + activeIndex;
-        newIndex += loopedSlides;
-        const slideChanged = swiper.slideTo(newIndex, 0, false, true);
+        newIndex += loopedSlides; // const slideChanged = swiper.slideTo(newIndex, 0, false, true);
+
+        const slideChanged = swiper.slideTo(newIndex, 0, false, true, null, true);
 
         if (slideChanged && diff !== 0) {
           swiper.setTranslate((rtl ? -swiper.translate : swiper.translate) - diff);
